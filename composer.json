@@ -1,0 +1,35 @@
+{
+    "name": "diimolabs/laravel-oauth2-client",
+    "type": "library",
+    "description": "Package to handle communication with authorization between microservices",
+    "keywords": [
+        "laravel",
+        "microservices",
+        "authorization",
+        "oauth"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Javier Villatoro",
+            "email": "javier99.villatoro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "firebase/php-jwt": "^5.4",
+        "guzzlehttp/guzzle": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Diimolabs\\Oauth2Client\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Diimolabs\\Oauth2Client\\OAuthServiceProvider"
+            ]
+        }
+    }
+}
