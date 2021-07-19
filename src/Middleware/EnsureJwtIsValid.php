@@ -7,7 +7,7 @@ use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class EnsureJwtIsValidMiddleware
+class EnsureJwtIsValid
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class EnsureJwtIsValidMiddleware
      * @param string $scopes
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $scopes = "")
+    public function handle(Request $request, Closure $next, $scopes = '')
     {
         try {
-            if (! $request->bearerToken()){
+            if (! $request->bearerToken()) {
                 return response()->json([
                     'message' => 'You are not authorized'
                 ], 401);

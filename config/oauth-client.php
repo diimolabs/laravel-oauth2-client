@@ -30,7 +30,9 @@ return [
     | $this->http->post(config('oauth-client.services.service1') . '/blog')
     |
     */
+
     'external_services' => [
         // "example" => "https://myservice.com/api"
     ],
+
 ];

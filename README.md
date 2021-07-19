@@ -33,7 +33,7 @@ A package that allows secure communication between two or more projects, focused
     ```php
     protected $routeMiddleware = [
         // Other middleware...
-        'jwt' => \Diimolabs\Oauth2Client\Middleware\EnsureJwtIsValidMiddleware::class
+        'jwt' => \Diimolabs\Oauth2Client\Middleware\EnsureJwtIsValid::class
     ];
     ```
 

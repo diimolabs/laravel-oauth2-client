@@ -10,7 +10,7 @@ class OAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/oauth-client.php' => config_path('oauth-client.php')
+            __DIR__ . '/../config/oauth-client.php' => config_path('oauth-client.php')
         ], 'oauth-client');
     }
 
