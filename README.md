@@ -65,3 +65,13 @@ Route::prefix('v1')->middleware('jwt')->group(function ()
     });
 });
 ```
+
+# Extra
+
+import the configuration file using:
+
+```
+php artisan vendor:publish --tag=oauth-client
+```
+
+in `external_services` you can manage the urls of your different services
