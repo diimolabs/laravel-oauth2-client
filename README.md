@@ -33,20 +33,20 @@ A package that allows secure communication between two or more projects, focused
     ```php
     protected $routeMiddleware = [
         // Other middleware...
-        'jwt' => \Diimolabs\Oauth2Client\Middleware\EnsureJwtIsValid::class
+        'jwt' => \Diimolabs\OAuth\Middleware\EnsureJwtIsValid::class
     ];
     ```
 
 ## Use
 
 Example of requesting a resource to a microservice
-
 ```php
-use Diimolabs\Oauth2Client\OAuthHttpClient;
+use Diimolabs\OAuth\Facades\OAuthClient;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function(){
     Route::get('message', function(){
-        return OAuthHttpClient::oauthRequest()
+        return OAuthClient::request()
             ->get('http://msa-2.test/api/v1/hello-world')
             ->body();
     });
@@ -55,8 +55,9 @@ Route::prefix('v1')->group(function(){
 ```
 
 Example of a request from a microservice client
-
 ```php
+use Illuminate\Support\Facades\Route;
+
 Route::prefix('v1')->middleware('jwt')->group(function ()
 {
     Route::get('/hello-world', function ()
@@ -69,9 +70,7 @@ Route::prefix('v1')->middleware('jwt')->group(function ()
 # Extra
 
 import the configuration file using:
-
 ```
 php artisan vendor:publish --tag=oauth-client
 ```
-
 in `external_services` you can manage the urls of your different services

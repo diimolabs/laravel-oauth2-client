@@ -1,34 +1,34 @@
 <?php
 
-namespace Diimolabs\Oauth2Client;
+namespace Diimolabs\OAuth;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class OAuthHttpClient
 {
-    private static $path;
+    private $path;
 
-    private static $host;
+    private $host;
 
-    private static $clientId;
+    private $clientId;
 
-    private static $clientSecret;
+    private $clientSecret;
 
-    private static function getCredentialsInfo()
+    private function getCredentialsInfo()
     {
         return collect(json_decode(
-            file_get_contents(self::$path)
+            file_get_contents($this->path)
         ));
     }
 
-    private static function requestToken()
+    private function requestToken()
     {
         $response = Http::acceptJson()
-            ->post(self::$host . '/oauth/token', [
+            ->post($this->host . '/oauth/token', [
                 'grant_type' => 'client_credentials',
-                'client_id' => self::$clientId,
-                'client_secret' => self::$clientSecret,
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
             ]);
 
         if ($response->failed()) {
@@ -38,44 +38,44 @@ class OAuthHttpClient
         Storage::put('oauth-credentials.json.key', $response->body());
     }
 
-    private static function validateToken()
+    private function validateToken()
     {
-        if (! file_exists(self::$path)) {
-            self::requestToken();
+        if (! file_exists($this->path)) {
+            $this->requestToken();
         }
 
-        $data = self::getCredentialsInfo();
+        $data = $this->getCredentialsInfo();
 
         $expiredDate = now()->parse(date("Y-m-d H:i:s", $data['expires_in']));
 
         if (now()->lt($expiredDate)) {
-            self::requestToken();
+            $this->requestToken();
         }
     }
 
-    private static function getAuthorizationToken()
+    private function getAuthorizationToken()
     {
-        self::validateToken();
+        $this->validateToken();
 
-        return self::getCredentialsInfo()['access_token'];
+        return $this->getCredentialsInfo()['access_token'];
     }
 
-    private static function getOauthAuthorization()
+    private function getOauthAuthorization()
     {
         return [
-            'Authorization' => 'Bearer ' . self::getAuthorizationToken()
+            'Authorization' => 'Bearer ' . $this->getAuthorizationToken()
         ];
     }
 
-    public static function oauthRequest()
+    public function request()
     {
-        self::$path = storage_path('app/oauth-credentials.json.key');
-        self::$host = config('oauth-client.host');
-        self::$clientId = config('oauth-client.client_id');
-        self::$clientSecret = config('oauth-client.client_secret');
+        $this->path = storage_path('app/oauth-credentials.json.key');
+        $this->host = config('oauth-client.host');
+        $this->clientId = config('oauth-client.client_id');
+        $this->clientSecret = config('oauth-client.client_secret');
 
         return Http::withHeaders(
-            self::getOauthAuthorization()
+            $this->getOauthAuthorization()
         );
     }
 }
