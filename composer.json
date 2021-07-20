@@ -22,13 +22,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Diimolabs\\Oauth2Client\\": "src/"
+            "Diimolabs\\OAuth\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Diimolabs\\Oauth2Client\\OAuthServiceProvider"
+                "Diimolabs\\OAuth\\OAuthServiceProvider"
             ]
         }
     }

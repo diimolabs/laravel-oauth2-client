@@ -1,8 +1,8 @@
 <?php
 
-namespace Diimolabs\Oauth2Client;
+namespace Diimolabs\OAuth;
 
-use Diimolabs\Oauth2Client\OAuthHttpClient;
+use Diimolabs\OAuth\Facades\OAuthClient;
 use Illuminate\Support\ServiceProvider;
 
 class OAuthServiceProvider extends ServiceProvider
@@ -16,8 +16,8 @@ class OAuthServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(OAuthHttpClient::class, function(){
-            return new OAuthHttpClient();
+        $this->app->bind(OAuthClient::class, function(){
+            return new OAuthClient;
         });
     }
 }
