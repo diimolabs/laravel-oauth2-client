@@ -29,7 +29,10 @@
         "laravel": {
             "providers": [
                 "Diimolabs\\OAuth\\OAuthServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "OAuthClient": "Diimolabs\\OAuth\\Facades\\OAuthClient"
+            }
         }
     }
 }

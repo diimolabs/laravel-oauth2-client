@@ -1,6 +1,6 @@
 <?php
 
-namespace Diimolabs\Oauth2Client\Middleware;
+namespace Diimolabs\OAuth\Middleware;
 
 use Closure;
 use Firebase\JWT\JWT;
