@@ -35,7 +35,7 @@ class OAuthHttpClient
             abort(403);
         }
 
-        Storage::put('oauth-credentials.json.key', $response->body());
+        Storage::disk('local')->put('oauth-credentials.json.key', $response->body());
     }
 
     private function validateToken()
